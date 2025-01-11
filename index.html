@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Journey</title>
+    <title>Design Journey</title>
     <style>
+        :root {
+            --primary-color: #7C3AED;
+            --secondary-color: #C084FC;
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --text-color: #E2E8F0;
+            --accent-color: #22D3EE;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,129 +21,322 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            color: var(--text-color);
+            background: var(--bg-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .gradient-blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            filter: blur(60px);
+            opacity: 0.3;
+            top: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin: 2rem 0 1rem;
-            color: #34495e;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin: 1.5rem 0 1rem;
-            color: #7f8c8d;
-        }
-
-        p {
+            font-size: 4rem;
             margin-bottom: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .skill-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            opacity: 0.3;
         }
 
         .timeline-section {
             position: relative;
-            padding-left: 30px;
-            margin-bottom: 40px;
+            width: calc(50% - 40px);
+            margin: 40px 0;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-section:nth-child(odd) {
+            margin-left: auto;
         }
 
         .timeline-section::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #3498db;
+            top: 30px;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
         }
 
-        .timeline-section::after {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #3498db;
+        .timeline-section:nth-child(odd)::before {
+            left: -40px;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
+        .timeline-section:nth-child(even)::before {
+            right: -40px;
+        }
+
+        .year {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tools-used {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tool {
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .metrics {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-section {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-section::before {
+                left: -30px !important;
+                width: 30px;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            h2 {
-                font-size: 1.75rem;
-            }
-
-            h3 {
-                font-size: 1.25rem;
+            .gradient-blob {
+                width: 300px;
+                height: 300px;
+                top: -150px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>My Journey</h1>
-    <p>A story of growth and learning</p>
+    <div class="container">
+        <header>
+            <div class="gradient-blob"></div>
+            <div class="header-content">
+                <h1>Design Journey</h1>
+                <p class="subtitle">Crafting meaningful experiences through user-centered design</p>
+                
+                <div class="skills-container">
+                    <span class="skill-badge">UI Design</span>
+                    <span class="skill-badge">User Research</span>
+                    <span class="skill-badge">Prototyping</span>
+                    <span class="skill-badge">Design Systems</span>
+                    <span class="skill-badge">Interaction Design</span>
+                    <span class="skill-badge">Usability Testing</span>
+                </div>
+            </div>
+        </header>
 
-    <div class="timeline-section">
-        <h2>2020</h2>
-        <h3>Beginning of the Journey</h3>
-        <p>It all started with a simple curiosity about how things work. I dove into the world of technology, eager to learn and create.</p>
-    </div>
+        <div class="timeline">
+            <div class="timeline-section">
+                <span class="year">2023</span>
+                <h3>Senior UX Designer</h3>
+                <p>Led the redesign of our flagship product, resulting in a 40% increase in user engagement and a significant reduction in user complaints.</p>
+                
+                <div class="tools-used">
+                    <span class="tool">Figma</span>
+                    <span class="tool">Principle</span>
+                    <span class="tool">Maze</span>
+                </div>
 
-    <div class="timeline-section">
-        <h2>2021</h2>
-        <h3>Growing & Learning</h3>
-        <p>As my skills grew, so did my ambitions. I worked on increasingly complex projects, each one teaching me something new.</p>
-    </div>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">40%</div>
+                        <div class="metric-label">Engagement ↑</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">25%</div>
+                        <div class="metric-label">Conversion ↑</div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="timeline-section">
-        <h2>2022</h2>
-        <h3>Making an Impact</h3>
-        <p>I began to see how my work could make a real difference. Every project became an opportunity to solve meaningful problems.</p>
-    </div>
+            <div class="timeline-section">
+                <span class="year">2022</span>
+                <h3>UX Research Lead</h3>
+                <p>Conducted extensive user research and usability testing for our mobile app, identifying key pain points and opportunities for improvement.</p>
+                
+                <div class="tools-used">
+                    <span class="tool">UserTesting</span>
+                    <span class="tool">Miro</span>
+                    <span class="tool">Optimal Workshop</span>
+                </div>
 
-    <div class="timeline-section">
-        <h2>2023</h2>
-        <h3>Looking Forward</h3>
-        <p>Today, I continue to push boundaries and explore new possibilities. The journey never ends - there's always something new to learn and create.</p>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">500+</div>
+                        <div class="metric-label">Users Interviewed</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">15</div>
+                        <div class="metric-label">Research Studies</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-section">
+                <span class="year">2021</span>
+                <h3>Product Designer</h3>
+                <p>Created and implemented a comprehensive design system that reduced design inconsistencies and improved development efficiency.</p>
+                
+                <div class="tools-used">
+                    <span class="tool">Sketch</span>
+                    <span class="tool">Abstract</span>
+                    <span class="tool">Zeplin</span>
+                </div>
+
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">60%</div>
+                        <div class="metric-label">Dev Time ↓</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">200+</div>
+                        <div class="metric-label">Components</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Add smooth scroll animation when timeline sections come into view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.transform = 'translateX(0)';
                 }
             });
         }, {
-            threshold: 0.1
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
         });
 
-        // Apply initial styles and observe all timeline sections
         document.querySelectorAll('.timeline-section').forEach(section => {
             section.style.opacity = 0;
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'all 0.5s ease-out';
+            section.style.transform = section.offsetLeft > window.innerWidth / 2 ? 
+                'translateX(100px)' : 'translateX(-100px)';
+            section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
             observer.observe(section);
+        });
+
+        // Add hover effect to skill badges
+        document.querySelectorAll('.skill-badge').forEach(badge => {
+            badge.style.transition = 'all 0.3s ease';
         });
     </script>
 </body>
